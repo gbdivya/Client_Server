@@ -1,17 +1,18 @@
 import socket
 
-s = socket.socket()
+ServerSocket = socket.socket()
 
 print("Socket Created")
+host= '192.168.246.45'
+port= 3000
 
-s.bind(('localhost', 3000))
-s.listen(5)
+ServerSocket.bind((host,port))
+ServerSocket.listen(5)
 
-print('waiting for connections')
+print('Waitiing for a Connection..')
 
 while True:
-    c, addr = s.accept()
-    name = c.recv(1024).decode()
-    print("Connected with", addr, name)
-    c.send(bytes("Welcome to MSIS", 'utf-8'))
-    c.close()
+    ClientSocket, addr = ServerSocket.accept()
+    name = ClientSocket.recv(1024).decode()
+    print( name, ": Connected" )
+    ClientSocket.close()
